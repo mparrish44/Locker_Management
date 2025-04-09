@@ -62,10 +62,29 @@ A Flask-based application designed for schools and institutions to manage locker
 
 ## Project Structure
 
+```markdown
 ```
-locker_app/ │ ├── app/ │ ├── templates/ # HTML Templates │ ├── static/ # Static files (CSS, JS, Images) │ ├── routes/ # Flask Routes │ │ ├── admin.py # Admin-related views and logic │ │ ├── teacher.py # Teacher-related views and logic │ │ └── student.py # Student-related views and logic │ ├── forms.py # Flask-WTForms │ ├── models.py # SQLAlchemy models │ ├── utils.py # Utility functions │ └── **init**.py # Flask application factory │ ├── migrations/ # Database migration scripts ├── .venv/ # Virtual environment (not included in repo) ├── requirements.txt # Python dependencies ├── config.py # App configuration └── README.md # Project documentation
+locker_app/
+│
+├── app/                        # Main application directory
+│   ├── templates/              # HTML Templates
+│   ├── static/                 # Static files (CSS, JS, Images)
+│   ├── routes/                 # Flask Routes
+│   │   ├── admin.py            # Admin-related views and logic
+│   │   ├── teacher.py          # Teacher-related views and logic
+│   │   └── student.py          # Student-related views and logic
+│   ├── forms.py                # Flask-WTForms
+│   ├── models.py               # SQLAlchemy models
+│   ├── utils.py                # Utility functions
+│   └── __init__.py             # Flask application factory
+│
+├── migrations/                 # Database migration scripts
+├── .venv/                      # Virtual environment (not included in repo)
+├── requirements.txt            # Python dependencies
+├── config.py                   # App configuration
+└── README.md                   # Project documentation
 ```
-
+```
 
 ---
 
