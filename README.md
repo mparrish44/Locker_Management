@@ -4,6 +4,9 @@ A Flask-based application designed for schools and institutions to manage locker
 
 ---
 
+![Locker Management](https://github.com/mparrish44/Locker_Management/blob/main/app/images/welcome.png)
+
+
 ## Features
 
 - **Admin Features:**
