@@ -1,0 +1,58 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Manage Buildings{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Manage Buildings</h1>
+    <p class="lead">Here you can view and manage the buildings where lockers are located.</p>
+
+    <a href="{{ url_for('admin.add_building') }}" class="btn btn-primary mb-3">Add New Building</a>
+
+    {% if buildings %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for building in buildings %}
+            <tr>
+                <td>{{ building.id }}</td>
+                <td>{{ building.name }}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_building', building_id=building.id) }}" class="btn btn-sm btn-info">Edit</a>
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteBuildingModal{{ building.id }}">Delete</button>
+
+                    <div class="modal fade" id="deleteBuildingModal{{ building.id }}" tabindex="-1" aria-labelledby="deleteBuildingModalLabel{{ building.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteBuildingModalLabel{{ building.id }}">Confirm Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete the building "{{ building.name }}"? This will also remove any lockers associated with it.
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <form method="POST" action="{{ url_for('admin.delete_building', building_id=building.id) }}">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No buildings have been added yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

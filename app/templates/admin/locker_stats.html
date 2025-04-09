@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Locker Usage Statistics{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Locker Usage Statistics</h1>
+    <p class="lead">Here's an overview of how the lockers are being used.</p>
+
+    <div class="row my-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-box-seam me-2"></i> Total Lockers</h5>
+                    <p class="card-text">{{ total_lockers }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-check-square-fill me-2"></i> Assigned Lockers</h5>
+                    <p class="card-text">{{ assigned_lockers }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-x-octagon-fill me-2"></i> Available Lockers</h5>
+                    <p class="card-text">{{ available_lockers }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-percent me-2"></i> Percentage Assigned</h5>
+                    <p class="card-text">{{ percentage_assigned }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="my-4">Locker Usage by Building</h2>
+    {% if buildings_pagination %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Building Name</th>
+                    <th>Total Lockers</th>
+                    <th>Assigned</th>
+                    <th>Available</th>
+                    <th>Percentage Assigned</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for building in buildings_pagination.items %}
+                <tr>
+                    <td>{{ building.name }}</td>
+                    <td>{{ building.lockers|length }}</td>
+                    <td>{{ building.lockers|selectattr('assigned_user_id')|list|length }}</td>
+                    <td>{{ building.lockers|rejectattr('assigned_user_id')|list|length }}</td>
+                    <td>{{ (building.lockers|selectattr('assigned_user_id')|list|length / building.lockers|length * 100) | round(2) if building.lockers|length > 0 else 0 }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <nav aria-label="Building usage pagination">
+            <ul class="pagination">
+                {% if buildings_pagination.has_prev %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('admin.locker_stats', building_page=buildings_pagination.prev_num) }}">Previous</a></li>
+                {% endif %}
+                {% for page_num in buildings_pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                        {% if buildings_pagination.page == page_num %}
+                            <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('admin.locker_stats', building_page=page_num) }}">{{ page_num }}</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if buildings_pagination.has_next %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('admin.locker_stats', building_page=buildings_pagination.next_num) }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% else %}
+        <p>No building statistics available yet.</p>
+    {% endif %}
+
+    <h2 class="my-4">Recent Locker Assignments</h2>
+    {% if recent_assignments_pagination %}
+        <ul class="list-group">
+            {% for assignment in recent_assignments_pagination.items %}
+            <li class="list-group-item">
+                Locker #{{ assignment.locker_number }} in {{ assignment.building.name }} assigned to
+                {{ assignment.assigned_to_user.full_name if assignment.assigned_to_user }}
+                {% if assignment.assignment_date %}
+                    on {{ assignment.assignment_date.strftime('%Y-%m-%d %H:%M:%S') }}
+                {% else %}
+                    on (Date not recorded)
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+        <nav class="mt-4" aria-label="Recent assignments pagination">
+            <ul class="pagination">
+                {% if recent_assignments_pagination.has_prev %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('admin.locker_stats', page=recent_assignments_pagination.prev_num) }}">Previous</a></li>
+                {% endif %}
+                {% for page_num in recent_assignments_pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                    {% if page_num %}
+                        {% if recent_assignments_pagination.page == page_num %}
+                            <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('admin.locker_stats', page=page_num) }}">{{ page_num }}</a></li>
+                        {% endif %}
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if recent_assignments_pagination.has_next %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('admin.locker_stats', page=recent_assignments_pagination.next_num) }}">Next</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% else %}
+        <p>No recent locker assignments.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

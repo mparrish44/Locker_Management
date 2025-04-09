@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% block title %}Assign Locker{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Assign Locker {{ locker.id }}</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.student.label }} {{ form.student(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

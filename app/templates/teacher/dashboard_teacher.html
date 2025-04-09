@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Welcome, {{ session["username"] }}!</h1>
+    <p class="lead">Use the tools below to manage lockers and student information.</p>
+
+    <!-- Locker Management Section -->
+    <div class="list-group my-4">
+        <h5 class="mb-2">Locker Management</h5>
+        <a href="{{ url_for('teacher.locker_stats') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-bar-chart-line"></i> Locker Statistics
+        </a>
+
+        <!--- <a href="{{ url_for('lockers.show_available_lockers') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-box"></i> Available Lockers
+        </a> --->
+
+        <a href="{{ url_for('teacher.view_lockers') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-person-check"></i> View Lockers
+        </a>
+    </div>
+
+    <!-- Locker Assignment -->
+    <div class="list-group my-4">
+        <h5 class="mb-2">Assign Lockers</h5>
+        <a href="{{ url_for('teacher.assign_locker') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-arrow-down-circle"></i> Assign Locker
+        </a>
+    </div>
+
+    <!-- Student Management -->
+    <div class="list-group my-4">
+        <h5 class="mb-2">Student Management</h5>
+        <a href="{{ url_for('teacher.manage_users') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-card-list"></i> Manage Students (Add, Edit, Delete)
+        </a>
+        <a href="{{ url_for('teacher.add_user') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-person-plus"></i> Add New Student
+        </a>
+    </div>
+
+    <!-- Logout -->
+    <div class="list-group my-4">
+        <h5 class="mb-2">Account</h5>
+        <a href="{{ url_for('auth.logout') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-door-closed"></i> Logout
+        </a>
+    </div>
+</div>
+{% endblock %}

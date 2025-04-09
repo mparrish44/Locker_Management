@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+{% block title %}Modify Tables{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Modify Tables</h1>
+    <ul class="list-group">
+        <li class="list-group-item"><a href="{{ url_for('settings.manage_buildings') }}">Manage Buildings</a></li>
+        <li class="list-group-item"><a href="{{ url_for('settings.manage_grade_levels') }}">Manage Grade Levels</a></li>
+        <li class="list-group-item"><a href="{{ url_for('settings.manage_graduation_years') }}">Manage Graduation Years</a></li>
+        <li class="list-group-item"><a href="{{ url_for('settings.manage_allowed_domains') }}">Manage Allowed Domains</a></li>
+        <li class="list-group-item"><a href="{{ url_for('settings.manage_home_page_content') }}">Manage Home Page Content</a></li>
+        <li class="list-group-item"><a href="{{ url_for('settings.manage_lockers') }}">Manage Lockers</a></li>
+        <li class="list-group-item"><a href="{{ url_for('settings.manage_users') }}">Manage Users</a></li>
+    </ul>
+</div>
+{% endblock %}

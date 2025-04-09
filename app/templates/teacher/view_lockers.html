@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}View All Lockers{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>View Lockers</h1>
+
+    <form method="GET" action="{{ url_for('teacher.view_lockers') }}" class="mb-3">
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="building_id" class="form-label">Building:</label>
+            </div>
+            <div class="col-auto">
+                <select class="form-select" id="building_id" name="building_id">
+                    <option value="">All Buildings</option>
+                    {% for building in buildings %}
+                        <option value="{{ building.id }}" {% if current_building_id == building.id %}selected{% endif %}>
+                            {{ building.building_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="floor" class="form-label">Floor:</label>
+            </div>
+            <div class="col-auto">
+                <select class="form-select" id="floor" name="floor">
+                    <option value="">All Floors</option>
+                    {% for f in ['1', '2', '3', '4', '5'] %} {# You might need to adjust these floor numbers #}
+                        <option value="{{ f }}" {% if current_floor == f %}selected{% endif %}>{{ f }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+            </div>
+            <div class="col-auto">
+                <a href="{{ url_for('teacher.view_lockers') }}" class="btn btn-secondary btn-sm">Reset Filters</a>
+            </div>
+        </div>
+        <input type="hidden" name="status" value="{{ current_status }}">
+    </form>
+
+    <div>
+        <a href="{{ url_for('teacher.view_lockers') }}" class="btn btn-sm btn-outline-primary">View All</a>
+        <a href="{{ url_for('teacher.view_lockers', status='available') }}" class="btn btn-sm btn-outline-success">View Available</a>
+        <a href="{{ url_for('teacher.view_lockers', status='assigned') }}" class="btn btn-sm btn-outline-info">View Assigned</a>
+    </div>
+    <br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Building</th>
+                <th>Locker No</th>
+                <th>Floor</th>
+                <th>Section</th>
+                <th>Available</th>
+                <th>Assigned To</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for locker in lockers_pagination.items %}
+            <tr>
+                <td>{{ locker.building.building_name if locker.building }}</td>
+                <td>{{ locker.locker_number }}</td>
+                <td>{{ locker.floor }}</td>
+                <td>{{ locker.section }}</td>
+                <td>{{ 'Yes' if locker.assigned_user_id is none else 'No' }}</td>
+                <td>{{ locker.assigned_to_user.full_name if locker.assigned_to_user }}</td>
+                <td>
+                    {% if locker.assigned_user_id %}
+                    <form method="POST" action="{{ url_for('teacher.unassign_locker', locker_id=locker.id) }}" style="display:inline;">
+                        {{ delete_form.hidden_tag() }}
+                        <button type="submit" class="btn btn-sm btn-warning">Unassign</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <nav aria-label="Locker pagination">
+        <ul class="pagination">
+            {% if lockers_pagination.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('teacher.view_lockers', page=lockers_pagination.prev_num, building_id=current_building_id, floor=current_floor, status=current_status) }}">Previous</a></li>
+            {% endif %}
+            {% for page_num in lockers_pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                    {% if lockers_pagination.page == page_num %}
+                    <li class="page-item active" aria-current="page"><span class="page-link">{{ page_num }}</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ url_for('teacher.view_lockers', page=page_num, building_id=current_building_id, floor=current_floor, status=current_status) }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                {% endif %}
+            {% endfor %}
+            {% if lockers_pagination.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('teacher.view_lockers', page=lockers_pagination.next_num, building_id=current_building_id, floor=current_floor, status=current_status) }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

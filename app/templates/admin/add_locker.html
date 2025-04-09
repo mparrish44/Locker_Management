@@ -1,0 +1,23 @@
+{% extends "admin/base.html" %}
+{% block title %}Add Locker{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Add Locker</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.locker_id.label }} {{ form.locker_id(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.building_id.label }} {{ form.building_id(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.floor.label }} {{ form.floor(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.section.label }} {{ form.section(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

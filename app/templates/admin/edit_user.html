@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% block title %}Edit User{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Edit User</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.first_name.label(class="form-label") }}
+            {{ form.first_name(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.last_name.label(class="form-label") }}
+            {{ form.last_name(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.is_teacher.label(class="form-label") }}
+            {{ form.is_teacher(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-warning">Update User</button>
+    </form>
+</div>
+{% endblock %}

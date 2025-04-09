@@ -1,0 +1,16 @@
+<!-- templates/admin/home_page_content_list.html -->
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<h1>Home Page Content List</h1>
+<div>
+    <ul>
+        <!-- Example content list -->
+        {% for content in home_page_content %}
+        <li>{{ content.title }} - {{ content.description }}</li>
+        {% else %}
+        <li>No content available.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

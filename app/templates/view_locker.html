@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}View Locker{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ session["username"] }}'s Assigned Locker</h1>
+
+    {% if locker %}
+        <p><strong>Locker Number:</strong> {{ locker.locker_number }}</p>
+        <p><strong>Building:</strong> {{ building_name }}</p>
+
+        <form action="{{ url_for('lockers.release_locker') }}" method="post">
+            <button type="submit" class="btn btn-danger">Release Locker</button>
+        </form>
+    {% else %}
+        <p>You do not have a registered locker.</p>
+        <a href="{{ url_for('lockers.select_building') }}" class="btn btn-primary">Register Locker</a>
+    {% endif %}
+
+    <p><a href="{{ url_for('lockers.student_dashboard') }}">Back to Dashboard</a></p>
+</div>
+{% endblock %}

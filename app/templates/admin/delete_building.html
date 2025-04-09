@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% block title %}Delete Building{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Delete Building</h1>
+    <p>Are you sure you want to delete Building {{ building.building_name }}?</p>
+    <form method="POST">
+        <input type="submit" value="Delete" class="btn btn-danger">
+        <a href="{{ url_for('admin.manage_buildings') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

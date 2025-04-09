@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Graduation Years{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Manage Graduation Years</h1>
+    <a href="{{ url_for('admin.add_graduation_year') }}" class="btn btn-primary mb-3">Add Graduation Year</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Graduation Year</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for year in graduation_years %}
+            <tr>
+                <td>{{ year.graduation_year }}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_graduation_year', graduation_year_id=year.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ url_for('admin.delete_graduation_year', graduation_year_id=year.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

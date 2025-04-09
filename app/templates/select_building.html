@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Select Building{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Select a Building</h1>
+
+    <form method="POST" action="{{ url_for('lockers.show_available_lockers') }}">
+        <div class="mb-3">
+            <label for="building_id" class="form-label">Building:</label>
+            <select class="form-select" id="building_id" name="building_id" required>
+                {% for building in buildings %}
+                    <option value="{{ building.id }}">{{ building.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Show Available Lockers</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Available Lockers{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Available Lockers in {{ building_name }}</h1>
+
+    {% if lockers %}
+        <form method="POST" action="{{ url_for('lockers.register_locker') }}">
+            <div class="mb-3">
+                <label for="locker_id" class="form-label">Select Locker:</label>
+                <select class="form-select" id="locker_id" name="locker_id" required>
+                    {% for locker in lockers %}
+                        <option value="{{ locker.id }}">{{ locker.locker_number }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Register Locker</button>
+        </form>
+    {% else %}
+        <p>No available lockers in this building.</p>
+    {% endif %}
+</div>
+{% endblock %}

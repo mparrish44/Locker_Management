@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% block title %}Edit Building{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Edit Building</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.building_name.label }} {{ form.building_name(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+</div>
+{% endblock %}

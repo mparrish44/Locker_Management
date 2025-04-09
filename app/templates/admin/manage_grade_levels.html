@@ -1,0 +1,45 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<h1>Manage Grade Levels</h1>
+
+<div>
+    <h2>Add New Grade Level</h2>
+    <form method="POST" action="{{ url_for('admin.add_grade_level') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.grade_level.label(class="form-label") }}
+            {{ form.grade_level(class="form-control") }}
+            {% for error in form.grade_level.errors %}
+                <div class="error-message" style="color: red;">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Grade Level</button>
+    </form>
+
+    <h2 class="mt-4">Existing Grade Levels</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Grade Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade_level in grade_levels %}
+            <tr>
+                <td>{{ grade_level.grade_level }}</td>
+                <td>
+                    <a href="{{ url_for('admin.edit_grade_level', grade_level_id=grade_level.id) }}" class="btn btn-primary btn-sm">Edit</a>
+                    <form method="POST" action="{{ url_for('admin.delete_grade_level', grade_level_id=grade_level.id) }}" style="display: inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this grade level?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="2">No grade levels found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

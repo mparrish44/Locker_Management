@@ -1,0 +1,242 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Assigned Lockers{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Manage Assigned Lockers</h1>
+    <p class="text-muted">Current Display Option: {{ display_option }}</p>
+    <p class="lead">Here's a list of currently assigned lockers and the students they are assigned to.</p>
+
+    <div class="mb-3">
+        <div class="row align-items-center">
+            <div class="col-md-auto">
+                <a href="{{ url_for('admin.manage_lockers', display='original_table', page=assigned_lockers_pagination.page if assigned_lockers_pagination else 1, search=request.args.get('search', '')) }}" class="btn btn-outline-primary btn-sm {% if display_option == 'original_table' %}active{% endif %}">Original Table</a>
+                <a href="{{ url_for('admin.manage_lockers', display='list_view', page=assigned_lockers_pagination.page if assigned_lockers_pagination else 1, search=request.args.get('search', '')) }}" class="btn btn-outline-primary btn-sm {% if display_option == 'list_view' %}active{% endif %}">List View</a>
+                <a href="{{ url_for('admin.manage_lockers', display='card_view', page=assigned_lockers_pagination.page if assigned_lockers_pagination else 1, search=request.args.get('search', '')) }}" class="btn btn-outline-primary btn-sm {% if display_option == 'card_view' %}active{% endif %}">Card View</a>
+                <a href="{{ url_for('admin.manage_lockers', display='condensed_table', page=assigned_lockers_pagination.page if assigned_lockers_pagination else 1, search=request.args.get('search', '')) }}" class="btn btn-outline-primary btn-sm {% if display_option == 'condensed_table' %}active{% endif %}">Condensed Table</a>
+            </div>
+            <div class="col-md">
+                <form class="d-flex justify-content-end" action="{{ url_for('admin.manage_lockers') }}" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Search lockers, students, buildings..." aria-label="Search" name="search" value="{{ search_term if search_term }}">
+                    <input type="hidden" name="display" value="{{ display_option }}">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <a href="{{ url_for('admin.add_locker') }}" class="btn btn-outline-primary btn-sm">Add Locker</a>
+    </div>
+
+    {% if assigned_lockers_pagination.items %}
+
+    {# Option 1: Original Table View #}
+    {% if display_option == 'original_table' %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Building</th>
+                <th>Floor</th>
+                <th>Locker No.</th>
+                <th>Assignment Date</th>
+                <th>Assigned To</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for locker in assigned_lockers_pagination.items %}
+            <tr>
+                <td>{{ locker.building.name }}</td>
+                <td>{{ locker.floor }}</td>
+                <td>{{ locker.locker_number }}</td>
+                <td>
+                    {% if locker.assignment_date %}
+                        {{ locker.assignment_date.strftime('%Y-%m-%d %H:%M:%S') }}
+                    {% else %}
+                        Not recorded
+                    {% endif %}
+                </td>
+                <td>
+                    {% if locker.user %}
+                        {{ locker.user.full_name }} ({{ locker.user.email }})
+                    {% else %}
+                        (Student data missing)
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <a href="{{ url_for('admin.edit_locker', locker_id=locker.id) }}" class="btn btn-sm btn-primary" style="padding: 0.2rem 0.4rem; font-size: 0.8rem; line-height: 1.2; border: none;">Edit</a>
+                        <form method="POST" action="{{ url_for('admin.delete_locker', locker_id=locker.id) }}" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger" style="padding: 0.2rem 0.4rem; font-size: 0.8rem; line-height: 1.2; border: none;" onclick="return confirm('Are you sure you want to delete this locker?')">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    {# Option 2: List View with Sub-Information (Revised) #}
+    {% if display_option == 'list_view' %}
+    <style>
+        .list-group-item-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .locker-info {
+            flex-grow: 1; /* Allow info to take up more space */
+        }
+        .release-button-container {
+            /* No specific styling needed here */
+        }
+    </style>
+    <ul class="list-group">
+        {% for locker in assigned_lockers_pagination.items %}
+        <li class="list-group-item list-group-item-flex">
+            <div class="locker-info">
+                <h6 class="mb-1">Locker #{{ locker.locker_number }}</h6>
+                <small class="text-muted">Assigned to: {% if locker.user %}{{ locker.user.full_name }}{% else %}(Student data missing){% endif %}</small>
+                <div class="mt-2">
+                    <small class="text-muted">Building: {{ locker.building.name }}</small><br>
+                    <small class="text-muted">Floor: {{ locker.floor }}</small><br>
+                    <small class="text-muted">Assignment Date:
+                        {% if locker.assignment_date %}
+                            {{ locker.assignment_date.strftime('%Y-%m-%d %H:%M') }}
+                        {% else %}
+                            Not recorded
+                        {% endif %}
+                    </small><br>
+                    {% if locker.user %}
+                    <small class="text-muted">Email: {{ locker.user.email }}</small>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="release-button-container">
+                <a href="{{ url_for('admin.edit_locker', locker_id=locker.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <form method="POST" action="{{ url_for('admin.delete_locker', locker_id=locker.id) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    {# Option 3: Card-Based Layout #}
+    {% if display_option == 'card_view' %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for locker in assigned_lockers_pagination.items %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Locker #{{ locker.locker_number }}</h5>
+                    <p class="card-text"><small class="text-muted">Building: {{ locker.building.name }}</small></p>
+                    <p class="card-text"><small class="text-muted">Floor: {{ locker.floor }}</small></p>
+                    <p class="card-text">Assigned To: {% if locker.user %}{{ locker.user.full_name }} <small>({{ locker.user.email }})</small>{% else %}(Student data missing){% endif %}</p>
+                    <p class="card-text"><small class="text-muted">
+                        Assignment Date:
+                        {% if locker.assignment_date %}
+                            {{ locker.assignment_date.strftime('%Y-%m-%d %H:%M') }}
+                        {% else %}
+                            Not recorded
+                        {% endif %}
+                    </small></p>
+                    <div class="d-flex gap-2">
+                        <a href="{{ url_for('admin.edit_locker', locker_id=locker.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <form method="POST" action="{{ url_for('admin.delete_locker', locker_id=locker.id) }}" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {# Option 4: Condensed Table View #}
+    {% if display_option == 'condensed_table' %}
+    <style>
+        .condensed-table td, .condensed-table th {
+            padding: 0.4rem 0.5rem;
+            font-size: 0.9rem;
+        }
+        .condensed-table .btn-sm {
+            padding: 0.15rem 0.3rem;
+            font-size: 0.75rem;
+            line-height: 1.3;
+        }
+    </style>
+    <table class="table table-striped condensed-table">
+        <thead>
+            <tr>
+                <th>Building</th>
+                <th>Floor</th>
+                <th>Locker No.</th>
+                <th>Assigned To</th>
+                <th>Assigned Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for locker in assigned_lockers_pagination.items %}
+            <tr>
+                <td>{{ locker.building.name }}</td>
+                <td>{{ locker.floor }}</td>
+                <td>{{ locker.locker_number }}</td>
+                <td>
+                    {% if locker.user %}
+                        {{ locker.user.full_name }}
+                    {% else %}
+                        (Missing)
+                    {% endif %}
+                </td>
+                <td>
+                    {% if locker.assignment_date %}
+                        {{ locker.assignment_date.strftime('%Y-%m-%d') }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="d-flex gap-1">
+                        <a href="{{ url_for('admin.edit_locker', locker_id=locker.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <form method="POST" action="{{ url_for('admin.delete_locker', locker_id=locker.id) }}" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <nav class="mt-4" aria-label="Page navigation">
+        <ul class="pagination">
+            {% if assigned_lockers_pagination.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('admin.manage_lockers', page=assigned_lockers_pagination.prev_num, display=display_option, search=request.args.get('search', '')) }}">Previous</a></li>
+            {% endif %}
+            {% for page_num in assigned_lockers_pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_num %}
+                    {% if assigned_lockers_pagination.page == page_num %}
+                        <li class="page-item active"><a class="page-link" href="#">{{ page_num }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{{ url_for('admin.manage_lockers', page=page_num, display=display_option, search=request.args.get('search', '')) }}">{{ page_num }}</a></li>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if assigned_lockers_pagination.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('admin.manage_lockers', page=assigned_lockers_pagination.next_num, display=display_option, search=request.args.get('search', '')) }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% else %}
+    <p>No lockers are currently assigned.</p>
+    {% endif %}
+</div>
+{% endblock %}

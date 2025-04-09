@@ -1,0 +1,12 @@
+{% extends "admin/base.html" %}
+{% block title %}Delete Locker{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Delete Locker</h1>
+    <p>Are you sure you want to delete locker {{ locker.id }}?</p>
+    <form method="POST">
+        <input type="submit" value="Delete" class="btn btn-danger">
+        <a href="{{ url_for('admin.manage_lockers') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

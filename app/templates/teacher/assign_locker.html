@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Assign Locker{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Assign Locker</h1>
+    <p>Please select a building, then a student, and an available locker to assign.</p>
+
+    <form method="GET" action="{{ url_for('teacher.assign_locker') }}" class="mb-3">
+        <div class="mb-3">
+            <label for="student_query" class="form-label">Search Student:</label>
+            <input type="text" class="form-control" id="student_query" name="student_query" value="{{ student_query }}">
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">Search Students</button>
+    </form>
+
+    <form method="POST" action="{{ url_for('teacher.assign_locker') }}">
+        <div class="mb-3">
+            <label for="building_id" class="form-label">Building:</label>
+            <select class="form-select" id="building_id" name="building_id" required>
+                <option value="">-- Select Building --</option>
+                {% for building in buildings %}
+                    <option value="{{ building.id }}" {% if selected_building_id|int == building.id %}selected{% endif %}>
+                        {{ building.building_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="user_id" class="form-label">Student:</label>
+            <select class="form-select" id="user_id" name="user_id" required>
+                <option value="">-- Select Student --</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.full_name }} ({{ user.email }})</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="locker_id" class="form-label">Locker Number:</label>
+            <select class="form-select" id="locker_id" name="locker_id" required>
+                <option value="">-- Select Locker --</option>
+                {% for building, lockers in grouped_lockers.items() %}
+                    {% if building %}
+                        <optgroup label="{{ building.building_name }}">
+                            {% for locker in lockers %}
+                                <option value="{{ locker.id }}">Floor: {{ locker.floor }}, Locker: {{ locker.locker_number }} (Section: {{ locker.section }})</option>
+                            {% endfor %}
+                        </optgroup>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Assign Locker</button>
+    </form>
+</div>
+{% endblock %}

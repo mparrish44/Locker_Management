@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Welcome, {{ session["username"] }}!</h1>
+    <p class="lead">Register and manage your locker.</p>
+
+    <div class="list-group my-4">
+        <a href="{{ url_for('lockers.select_building') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-pencil"></i> Locker Registration
+        </a>
+        <a href="{{ url_for('lockers.view_locker') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-box"></i> View My Locker
+        </a>
+        <a href="{{ url_for('lockers.schedule_options_student') }}" class="list-group-item list-group-item-action">
+            <i class="bi bi-rss"></i> RSS Feed Settings
+        </a>
+    </div>
+</div>
+{% endblock %}

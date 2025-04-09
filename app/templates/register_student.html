@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Student Registration</h2>
+    <form method="POST" action="{{ url_for('auth.register_student') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.first_name.label }} {{ form.first_name(class="form-control") }}
+            {% if form.first_name.errors %}
+            <ul class="errors">
+                {% for error in form.first_name.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.last_name.label }} {{ form.last_name(class="form-control") }}
+            {% if form.last_name.errors %}
+            <ul class="errors">
+                {% for error in form.last_name.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.email.label }} {{ form.email(class="form-control") }}
+            {% if form.email.errors %}
+            <ul class="errors">
+                {% for error in form.email.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <small class="form-text text-muted">Your email address will be used as your username.</small>
+        {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.password.label }} {{ form.password(class="form-control") }}
+            {% if form.password.errors %}
+            <ul class="errors">
+                {% for error in form.password.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.student_id.label }} {{ form.student_id(class="form-control") }}
+            {% if form.student_id.errors %}
+            <ul class="errors">
+                {% for error in form.student_id.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.grade_level.label }} {{ form.grade_level(class="form-control") }}
+            {% if form.grade_level.errors %}
+            <ul class="errors">
+                {% for error in form.grade_level.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.graduation_year.label }} {{ form.graduation_year(class="form-control") }}
+            {% if form.graduation_year.errors %}
+            <ul class="errors">
+                {% for error in form.graduation_year.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="form-group text-center">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#termsModal">
+                Read and Accept Terms of Agreement
+            </button>
+        </div>
+
+        <div class="form-group text-center">
+            {{ form.agreement.label(text="I have read and agree to the terms.") }} {{ form.agreement(id="agreementCheckbox", disabled=true) }}
+            {% if form.agreement.errors %}
+            <ul class="errors">
+                {% for error in form.agreement.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Register</button>
+            <a href="{{ url_for('main.index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Student Locker Use Agreement</h5>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li><strong>Locker Assignment and Use:</strong>
+                        <ul>
+                            <li>Lockers are assigned for the duration of the academic year.</li>
+                            <li>Only the assigned student is permitted to use the locker.</li>
+                            <li>Lockers are to be used for storing school-related materials only.</li>
+                            <li>Prohibited items include, but are not limited to: weapons, illegal substances, flammable
+                                materials, food items that may attract pests, and any items deemed inappropriate by
+                                school administration.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Locker Maintenance and Condition:</strong>
+                        <ul>
+                            <li>Students are responsible for maintaining the cleanliness of their locker.</li>
+                            <li>Students are responsible for any damage to the locker beyond normal wear and tear.</li>
+                            <li>Students must report any pre-existing damage to the locker upon assignment.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Locker Access and Security:</strong>
+                        <ul>
+                            <li>Students are responsible for the security of their locker and its contents.</li>
+                            <li>Students should not share their locker combination with others.</li>
+                            <li>School administration reserves the right to access any locker at any time, with or without
+                                prior notice, in cases of suspected violation of school policy or for safety reasons.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Locker Contents and Liability:</strong>
+                        <ul>
+                            <li>The school is not responsible for lost, stolen, or damaged items stored in lockers.</li>
+                            <li>Students are advised not to store valuable items in their lockers.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Locker Termination and Clean-Out:</strong>
+                        <ul>
+                            <li>Lockers must be emptied and cleaned by the student by the designated date at the end of
+                                the academic year.</li>
+                            <li>Any items left in the locker after the deadline will be considered abandoned and may be
+                                disposed of by the school.</li>
+                            <li>Failure to properly clean out the locker may result in fines or other disciplinary
+                                action.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Agreement Acceptance:</strong>
+                        <ul>
+                            <li>By registering, the student acknowledges that they have read, understood, and agree to the
+                                terms and conditions of this Student Locker Use Agreement. This agreement is subject to
+                                change at the discretion of the school administration.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="understandButton">I Understand</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('understandButton').addEventListener('click', function() {
+                document.getElementById('agreementCheckbox').disabled = false;
+                document.getElementById('agreementCheckbox').checked = true;
+                let myModalEl = document.getElementById('termsModal');
+                let modal = bootstrap.Modal.getInstance(myModalEl)
+                modal.hide();
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<h1>Add New Grade Level</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.grade_level.label(class="form-label") }}
+        {{ form.grade_level(class="form-control") }}
+        {% for error in form.grade_level.errors %}
+            <div class="error-message" style="color: red;">{{ error }}</div>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Add Grade Level</button>
+    <a href="{{ url_for('admin.manage_grade_levels') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

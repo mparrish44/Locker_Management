@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+{% block title %}Edit Graduation Year{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>Edit Graduation Year</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.graduation_year.label(class="form-label") }}
+            {{ form.graduation_year(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-warning">Update Graduation Year</button>
+    </form>
+</div>
+{% endblock %}
