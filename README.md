@@ -63,7 +63,7 @@ A Flask-based application designed for schools and institutions to manage locker
 ## Project Structure
 
 ```markdown
-```
+
 locker_app/
 │
 ├── app/                        # Main application directory
@@ -83,7 +83,6 @@ locker_app/
 ├── requirements.txt            # Python dependencies
 ├── config.py                   # App configuration
 └── README.md                   # Project documentation
-```
 ```
 
 ---
