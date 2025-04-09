@@ -62,6 +62,109 @@ A Flask-based application designed for schools and institutions to manage locker
 
 ## Project Structure
 
-'''
+```
 locker_app/ │ ├── app/ │ ├── templates/ # HTML Templates │ ├── static/ # Static files (CSS, JS, Images) │ ├── routes/ # Flask Routes │ │ ├── admin.py # Admin-related views and logic │ │ ├── teacher.py # Teacher-related views and logic │ │ └── student.py # Student-related views and logic │ ├── forms.py # Flask-WTForms │ ├── models.py # SQLAlchemy models │ ├── utils.py # Utility functions │ └── **init**.py # Flask application factory │ ├── migrations/ # Database migration scripts ├── .venv/ # Virtual environment (not included in repo) ├── requirements.txt # Python dependencies ├── config.py # App configuration └── README.md # Project documentation
-'''
+```
+
+
+---
+
+## How to Use
+
+1. **Login as a user:**
+   - Admin: Access the admin dashboard and manage the system.
+   - Teacher: Assign, release, or filter lockers assigned to students.
+   - Student: Reserve or release lockers.
+
+2. **Add Users and Grade Levels:**  
+   Admins can use forms provided in the respective views to add users and grade levels. Ensure correct input validation.
+
+3. **Locker Management:**  
+   Based on the user role, take actions such as assigning or releasing lockers. Filters like building, floor, and locker number can aid in searching.
+
+---
+
+## Routes Summary
+
+### Admin Routes
+| Method | Route                            | Description                  |
+|--------|----------------------------------|------------------------------|
+| GET    | `/admin/settings`               | View/Update application settings |
+| POST   | `/admin/add_user`               | Add a new user               |
+| POST   | `/admin/add_grade_level`        | Add a new grade level        |
+| GET    | `/admin/manage_users`           | Manage existing users        |
+| GET    | `/admin/manage_graduation_years`| Manage graduation years      |
+
+### Teacher Routes
+| Method | Route                            | Description                  |
+|--------|----------------------------------|------------------------------|
+| GET    | `/teacher/dashboard`            | Teacher Dashboard            |
+| GET    | `/teacher/view_lockers`         | View available lockers       |
+| POST   | `/teacher/assign_locker`        | Assign a locker to a student |
+
+### Student Routes
+| Method | Route                            | Description                  |
+|--------|----------------------------------|------------------------------|
+| GET    | `/student/available_lockers`    | View available lockers       |
+| POST   | `/student/release_locker`       | Release a locker             |
+
+---
+
+## Templates Overview
+
+Some key templates used in the project:
+- **Admin:**
+  - `admin/settings.html` - Configure email settings, RSS feeds, and allowed domains.
+  - `admin/manage_users.html` - Manage registered users.
+  - `admin/add_grade_level.html` - Add new grade levels.
+
+- **Teacher:**
+  - `teacher/view_lockers.html` - View and filter locker assignments.
+  - `teacher/register_teacher.html` - Teacher registration form.
+
+- **Student:**
+  - `student/available_lockers.html` - View and claim available lockers.
+
+---
+
+## Contributing
+
+1. Fork the project.
+2. Create your feature branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add some feature"
+   ```
+4. Push to your branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for more details.
+
+---
+
+## Future Enhancements
+
+- Enable real-time notifications for admins when actions are performed.
+- Add a reporting module for locker usage and availability.
+- Integration with external authentication providers.
+
+---
+
+## Contact
+
+For any queries or issues, feel free to contact:  
+Email: [admin@example.com](mailto:admin@example.com)
+
+---
+
+Happy Locker Management 🚪!
