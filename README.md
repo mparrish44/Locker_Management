@@ -178,11 +178,4 @@ This project is licensed under the MIT License. See `LICENSE` for more details.
 
 ---
 
-## Contact
-
-For any queries or issues, feel free to contact:  
-Email: [Morrell](morrell.parrish@gmail.com)
-
----
-
 Happy Locker Management 🚪!
