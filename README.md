@@ -1,5 +1,3 @@
-
-
 # Locker Management System
 
 A Flask-based application designed for schools and institutions to manage lockers efficiently. This project allows administrators, teachers, and students to manage lockers, assign them, and configure settings within their respective user roles.
@@ -63,3 +61,7 @@ A Flask-based application designed for schools and institutions to manage locker
 ---
 
 ## Project Structure
+
+'''
+locker_app/ │ ├── app/ │ ├── templates/ # HTML Templates │ ├── static/ # Static files (CSS, JS, Images) │ ├── routes/ # Flask Routes │ │ ├── admin.py # Admin-related views and logic │ │ ├── teacher.py # Teacher-related views and logic │ │ └── student.py # Student-related views and logic │ ├── forms.py # Flask-WTForms │ ├── models.py # SQLAlchemy models │ ├── utils.py # Utility functions │ └── **init**.py # Flask application factory │ ├── migrations/ # Database migration scripts ├── .venv/ # Virtual environment (not included in repo) ├── requirements.txt # Python dependencies ├── config.py # App configuration └── README.md # Project documentation
+'''
