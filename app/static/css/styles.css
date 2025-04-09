@@ -1,0 +1,250 @@
+/* General Body Styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif; /* Modern font */
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Entire page background in white */
+    color: #333; /* Soft dark text for readability */
+    line-height: 1.6; /* Enhanced readability */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s ease; /* Smooth hover transitions */
+}
+
+a:hover {
+    color: #0044cc; /* Darker blue hover effect for links */
+}
+
+/* Header Styles */
+header {
+    background-color: #ffffff; /* Header in white */
+    padding: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for container separation */
+    position: sticky; /* Stick header to the top on scroll */
+    top: 0;
+    z-index: 1000;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: space-between; /* Logo, app name, and navigation links spaced out */
+    padding: 1rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto; /* Center navbar container */
+    background-color: #ffffff; /* White navigation header background */
+    border-radius: 10px; /* Rounded edges for a cleaner look */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for navigation container */
+    position: relative; /* Ensure navbar content is contained within */
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center; /* Center the logo and app name */
+    text-decoration: none;
+    color: #333; /* Dark text for brand links */
+}
+
+.navbar-brand img {
+    max-height: 60px; /* Restrict max logo height */
+    width: auto; /* Maintain logo proportions */
+    display: inline-block;
+}
+
+.navbar-brand span {
+    margin-left: 0.5rem; /* Space between logo and app name */
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333; /* Dark color for app name */
+}
+
+/* Navigation Links */
+.navbar-nav {
+    display: flex;
+    list-style: none; /* Remove default list styles */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav li {
+    margin: 0 1rem; /* Horizontal spacing between navigation links */
+}
+
+.navbar-nav a {
+    color: #333; /* Visible dark text for links */
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-nav a:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Light gray hover effect */
+}
+
+/* Dropdown Menu Styling */
+.navbar-nav .dropdown-menu {
+    background-color: #ffffff; /* White dropdown menus */
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for dropdown */
+}
+
+.navbar-nav .dropdown-menu a {
+    color: #333; /* Dark text for dropdown links */
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+}
+
+.navbar-nav .dropdown-menu a:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Light hover effect for dropdown items */
+}
+
+/* Main Content Styles */
+main {
+    background-color: #ffffff; /* Containers remain white while blending into overall background */
+    max-width: 1200px;
+    margin: 2rem auto; /* Center content container */
+    padding: 2rem;
+    border-radius: 10px; /* Rounded corners for card-like effect */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Shadow to distinguish main content */
+    color: #333; /* Dark text for better contrast */
+}
+
+/* Footer Styles */
+footer {
+    background-color: #ffffff; /* Footer background is white */
+    color: #333; /* Dark text color for footer */
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.1); /* Top shadow for footer separation */
+    border-top: 1px solid #ddd; /* Subtle line separating footer */
+    margin-top: 2rem;
+}
+
+footer a {
+    color: #0044cc; /* Blue links in footer */
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: #003399; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column; /* Stack navbar items on small screens */
+        align-items: center;
+    }
+
+    .navbar-brand {
+        margin-bottom: 1rem; /* Add spacing below logo */
+    }
+
+    .navbar-nav {
+        flex-direction: column; /* Stack navigation links vertically */
+        align-items: center;
+    }
+
+    .navbar-nav li {
+        margin: 0.5rem 0; /* Vertical space between links */
+    }
+
+    main {
+        padding: 1rem; /* Reduce padding for smaller screens */
+    }
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.container {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto; /* Center containers */
+    background-color: #ffffff; /* White background for container blocks */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow to distinguish container */
+}
+
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* Button Styles */
+button, .btn {
+    background-color: #0066ff; /* Primary blue button */
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for buttons */
+}
+
+button:hover, .btn:hover {
+    background-color: #0044cc; /* Slightly darker blue on hover */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Form Styles */
+form {
+    max-width: 500px;
+    margin: 2rem auto;
+    background-color: #ffffff; /* White background for forms */
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for form container */
+}
+
+form label {
+    font-weight: bold;
+    color: #333; /* Dark labels */
+}
+
+form .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 0.5rem 0 1.5rem 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+form .form-control:focus {
+    border-color: #0066ff; /* Blue border on focus */
+    box-shadow: 0px 0px 5px rgba(0, 102, 255, 0.5); /* Add focus glow effect */
+    outline: none;
+}
+/* Override default button shadow for warning buttons */
+.btn-warning {
+    box-shadow: none; /* Remove the shadow */
+    border: 1px solid #ffc107; /* Optional: Add a border matching the background */
+    color: #212529; /* Ensure text color is appropriate */
+    background-color: #ffc107; /* Ensure background color is set */
+}
+
+.btn-warning:hover {
+    background-color: #e0a800; /* Darker shade on hover */
+    border-color: #d39e00; /* Darker border on hover */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* You can add a different shadow on hover if desired */
+}
+
+/* You might also want to remove the shadow from the small button variant if needed */
+.btn-sm.btn-warning {
+    /* Add any specific styles for small warning buttons here */
+}
