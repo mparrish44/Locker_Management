@@ -21,7 +21,6 @@ The Locker Management System provides a complete solution for schools to manage:
 - **System-wide reporting and analytics**
 - **Dynamic registration requirements** with weighted completion tracking
 
-[... rest of content ...]
 
 1. Clone the repository:
    ```bash
