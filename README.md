@@ -1,4 +1,4 @@
-# Forms, Registartion and Compliance System
+# Forms, Registration and Compliance System
 
 A comprehensive, enterprise-grade web-based platform designed to modernize and streamline the complete student lifecycle management for K-12 schools.
 
