@@ -1,7 +1,6 @@
-# AeroSchool: Forms, Registration & Compliance System
+# Locker Management System
 
-A comprehensive web-based school locker management system built with Flask, designed to streamline locker assignments,
-student registrations, sports program management, and administrative tasks.
+A comprehensive, enterprise-grade web-based platform designed to modernize and streamline the complete student lifecycle management for K-12 schools.
 
 ---
 
@@ -9,21 +8,73 @@ student registrations, sports program management, and administrative tasks.
 
 ## 🎯 Overview
 
-The Locker Management System provides a complete solution for schools to manage:
+**Locker Management System** is a comprehensive, enterprise-grade web-based platform designed to modernize and streamline the complete student lifecycle management for K-12 schools. Built with Flask and PostgreSQL, this system eliminates manual processes and spreadsheet-based workflows by providing an integrated solution for locker assignments, student registration, compliance tracking, and administrative oversight.
 
-- **Student locker assignments** across multiple buildings and floors
-- **Sports registration** workflows with approval processes
-- **User account management** for students, teachers, parents, and administrators
-- **Withdrawal request processing** with detailed tracking
-- **Emergency health record** management
-- **Pickup authorization** for student releases
-- **Transportation and media policy** management
-- **System-wide reporting and analytics**
-- **Dynamic registration requirements** with weighted completion tracking
-  
+### What It Does
 
+The platform serves as the **central hub for student operations**, enabling seamless coordination between students, teachers, parents, and administrators. Rather than juggling multiple systems, schools can now manage:
 
+- **Locker Assignment & Inventory Management** - Assign and track student lockers across multiple buildings with real-time availability status, accessibility features, and combination storage
+- **Student Registration & Compliance** - Collect and track mandatory student registrations (emergency health records, sports participation, pickup authorization, transportation methods, media policies) with automatic progress calculation and deadline tracking
+- **Sports Program Management** - Streamline the sports registration workflow with built-in approval processes, health record integration, and roster generation
+- **Withdrawal Processing** - Manage student withdrawals from start to finish with multi-stage approval workflows, denial reasons, and archival capabilities
+- **Parent Engagement** - Provide parents with their own portal where they can link accounts, submit required forms, and monitor their child's compliance status
+- **Reporting & Analytics** - Generate comprehensive reports in multiple formats (CSV, PDF) with advanced filtering, sorting, and compliance dashboards
 
+### Key Benefits
+
+**For Administrators:**
+- Centralized control over all school operations, from user management to locker inventory
+- Real-time visibility into system-wide compliance status
+- Bulk import/export capabilities for large-scale operations
+- Complete audit trail of all actions for accountability and compliance
+
+**For Teachers:**
+- Quick student management and locker assignment without admin overhead
+- Instant view of compliance status across their class rosters
+- Ability to send targeted notifications to students with missing requirements
+- Access to detailed reports on pickup authorizations, health records, and transportation
+
+**For Students:**
+- Single dashboard showing their locker assignment and compliance progress
+- Simple form submission for all required registrations
+- Real-time percentage tracking toward complete registration
+- Ability to release and manage their own locker assignment
+
+**For Parents:**
+- Secure account linking to their child's record
+- One-stop shop for submitting parental consent forms
+- Visibility into child's compliance progress and missing requirements
+- Notification system for required actions
+
+### Why This Matters
+
+Schools spend hundreds of hours manually managing lockers, collecting form signatures, and tracking compliance. Multiple spreadsheets, paper forms, and email chains create inefficiencies, increase errors, and make it impossible to see the complete picture. The Locker Management System eliminates this administrative burden by providing:
+
+- **Automation** - Automatic email notifications, progress calculation, and workflow routing
+- **Data Integrity** - Centralized database prevents duplicate entries and conflicting information
+- **Compliance** - Built-in audit logging ensures accountability for every action
+- **Accessibility** - Role-based access means each user only sees what they need
+- **Scalability** - Handles schools of any size, from 500 to 5,000+ students
+
+### Technology Stack
+
+- **Backend**: Flask (Python) with SQLAlchemy ORM
+- **Database**: PostgreSQL (production) or SQLite (development)
+- **Frontend**: Jinja2 templates, Bootstrap 5, responsive design
+- **Features**: User authentication, role-based access control, email integration, PDF/CSV export, real-time filtering
+- **Deployment**: Docker-ready, cloud-compatible (AWS, Azure, etc.)
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.9+
+- PostgreSQL database (or SQLite for development)
+- pip package manager
+
+### Installation
 
 1. Clone the repository:
    ```bash
