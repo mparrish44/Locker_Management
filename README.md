@@ -5,7 +5,7 @@ student registrations, sports program management, and administrative tasks.
 
 ---
 
-![Locker Management](https://github.com/mparrish44/Locker_Management/blob/main/app/images/neew_image.png)
+![Locker Management](https://github.com/mparrish44/Locker_Management/blob/main/app/images/new_image.png)
 
 ## 🎯 Overview
 
