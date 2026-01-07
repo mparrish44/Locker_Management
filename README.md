@@ -1,4 +1,4 @@
-# AeroSchool: Locker Management & Compliance System
+# AeroSchool: Central Form, Registration & Compliance System
 
 A comprehensive web-based school locker management system built with Flask, designed to streamline locker assignments,
 student registrations, sports program management, and administrative tasks.
