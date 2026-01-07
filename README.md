@@ -125,22 +125,178 @@ Locker_Management/
 └── README.md                     # Project documentation
 
 ```
+---
+## 📖 How to Use
+
+### 1. **Login as a User**
+
+#### Admin
+- Access the comprehensive admin dashboard with system-wide statistics and oversight
+- Manage all user accounts (create, edit, delete, search, bulk import)
+- Configure system settings, email templates, and form options
+- Manage school buildings, grade levels, graduation years, and other organizational data
+- Oversee all locker assignments and inventory across the school
+- Process and monitor all sports registrations, withdrawal requests, and compliance status
+- View complete system audit logs and activity reports
+- Send bulk emails to any user group
+- Set up and manage volunteer submissions and tracking
+
+#### Teacher
+- Access the teacher dashboard with quick statistics on students and lockers
+- Search, create, edit, and manage student profiles and accounts
+- Assign and unassign lockers to/from students with building and floor filtering
+- View detailed locker inventory with advanced search and filtering capabilities
+- Review and approve/reject sports registration submissions
+- Process student withdrawal requests with approval/denial workflows
+- Monitor the student compliance dashboard to track registration progress
+- Send targeted bulk notifications to students with incomplete registrations
+- Export compliance reports in multiple formats (CSV, PDF, or bulk ZIP archives)
+- Configure dynamic registration requirements and set completion weights
+- Access multi-tab reports for pickup authorizations, emergency health records, and transportation data
+
+#### Student
+- Access the personal student dashboard showing completion status and locker assignment
+- Submit required registration forms (sports, emergency health, pickup authorization, transportation, media policy)
+- Track personal compliance progress with a real-time percentage indicator
+- View assigned locker details including building, floor, and locker number
+- Download a personal PDF compliance report
+- Release an assigned locker when no longer needed
+
+#### Parent
+- Access the parent portal to monitor child's registration status
+- Link parent account to student record using student ID or email address
+- Submit required parental consent and permission forms on behalf of the student
+- View child's compliance progress and completion percentage
+- Track withdrawal requests initiated by the school
+- Receive and respond to system notifications about missing form requirements
+- Monitor which forms have been completed and which are still pending
 
 ---
 
-## How to Use
+### 2. **Add Users and Grade Levels**
 
-1. **Login as a user:**
-    - Admin: Access the admin dashboard and manage the system.
-    - Teacher: Assign, release, or filter lockers assigned to students.
-    - Student: Reserve or release lockers.
+#### Admin User Management
+- **Create New Users**: Use `/admin/add_user` to create accounts for students, teachers, parents, or admins
+  - Specify name, email, role, and role-specific details (student ID, grade level, etc.)
+  - System automatically generates a temporary password and sends password reset email
+  - Validate all required fields before submission
 
-2. **Add Users and Grade Levels:**  
-   Admins can use forms provided in the respective views to add users and grade levels. Ensure correct input validation.
+- **Bulk Import Users**: Use `/admin/import_users` to upload a CSV file with multiple user records
+  - CSV format: name, email, role, student_id (for students), grade_level, graduation_year
+  - Significantly faster than individual account creation for large groups
+  - System validates each row and reports any errors during import
 
-3. **Locker Management:**  
-   Based on the user role, take actions such as assigning or releasing lockers. Filters like building, floor, and locker
-   number can aid in searching.
+- **Add Grade Levels**: Navigate to `/admin/grade_levels` to manage school grade levels
+  - Create new grades (9th, 10th, 11th, 12th, etc.)
+  - Set sort order for display across the system
+  - Activate or deactivate grades as needed
+  - Ensure correct input validation (no duplicate names, proper sorting)
+
+- **Add Graduation Years**: Go to `/admin/graduation_years` to configure cohort years
+  - Add years for each student class (e.g., Class of 2025, 2026, etc.)
+  - Set display order and activate/deactivate as needed
+
+- **Add Buildings**: Access `/admin/manage_buildings` to set up school building locations
+  - Create building records with names and sort order
+  - Organize by numeric sort (Building 1, 2, 3, etc.)
+  - Buildings are used when assigning and filtering lockers
+
+#### Teacher User Management
+- **Create Student Accounts**: Teachers can add new student accounts via `/teacher/add_user`
+  - Fill in first name, last name, email, and student ID
+  - Assign grade level and graduation year
+  - System sends account activation email to the student
+
+- **Edit Student Profiles**: Update student information via `/teacher/edit_user/<id>`
+  - Modify names, email, student ID, grade level, and graduation year
+  - Changes are immediately reflected in the system
+
+---
+
+### 3. **Locker Management**
+
+#### Admin Locker Management
+- **Add New Lockers**: Navigate to `/admin/add_locker` to create individual locker records
+  - Specify building, floor, locker number, section, size, and accessibility
+  - Store locker combination/access code for reference
+  - Lockers are unassigned by default and ready for assignment
+
+- **Manage Locker Inventory**: Use `/admin/manage_lockers` to view, search, and filter all lockers
+  - Filter by building, floor, status (available/assigned), or search by student name
+  - Assign lockers to students using the modal dialog
+  - Unassign lockers to return them to available status
+  - Edit locker details (location, size, accessibility, combination)
+  - Delete lockers no longer in use
+  - View assignment date and currently assigned student
+
+- **Bulk Operations**: 
+  - **Assign Multiple**: Use bulk assign to quickly assign multiple lockers via dropdown selection
+  - **Import via CSV**: Upload a CSV file with locker and student data for batch assignments
+  - **Reset All**: Quickly unassign all lockers at once (useful at end of school year)
+
+- **View Statistics**: Access `/admin/locker_stats` for comprehensive locker analytics
+  - Total lockers, assigned count, available count, and occupancy percentage
+  - Building-by-building breakdown with specific counts
+  - Recent assignment history with dates and student information
+
+#### Teacher Locker Management
+- **Assign Lockers**: Go to `/teacher/assign_locker` to assign a locker to a student
+  - Search for unassigned students by name, email, or student ID
+  - Filter available lockers by building to narrow down options
+  - Select student and locker, then confirm assignment
+  - System records assignment date and student relationship
+
+- **View Locker Inventory**: Access `/teacher/view_lockers` to see all locker assignments
+  - Filter by status (all/available/assigned), building, floor, or student
+  - Fast-find search for lockers by assigned student name or student ID
+  - See assignment dates and assigned student information
+  - Unassign lockers individually when students leave or change lockers
+  - Lockers are sorted by building (numeric order) and floor for easy scanning
+
+- **Release Lockers**: Click "Unassign" next to assigned lockers to make them available again
+  - Removes student assignment and clears the assignment date
+  - Locker immediately becomes available for reassignment
+
+- **View Statistics**: Navigate to `/teacher/locker_stats` for locker analytics
+  - View occupancy statistics and trends
+  - See building-by-building breakdown
+  - View recent assignments history
+  - Track available locker counts
+
+#### Student Locker Management
+- **View Assigned Locker**: Students can see their assigned locker on the dashboard
+  - Shows building name, floor, locker number
+  - Displays locker combination/access code if provided
+  - View accessibility features if locker is ADA compliant
+
+- **Release Locker**: Students can release their locker via the `/student/dashboard`
+  - One-click release button to remove assignment
+  - Locker becomes available for another student
+  - Release action is logged in system audit trail
+
+---
+
+### Key Tips for All Roles
+
+**Search & Filter Best Practices:**
+- Use the search fields to quickly find specific users, lockers, or registrations
+- Combine multiple filters (e.g., building + floor + status) for precise results
+- Clear filters to reset and view all records
+
+**Bulk Operations:**
+- Always review selections before performing bulk actions
+- Bulk actions are logged for audit and compliance purposes
+- Use "Select All Filtered" to apply actions to all matching records across all pages
+
+**Data Validation:**
+- Ensure email addresses are unique (no duplicates allowed)
+- Student IDs should follow your school's naming convention
+- Building and floor numbers should be consistent for easy navigation
+
+**User Account Management:**
+- First-time users receive password reset emails with account activation links
+- Teachers and admins can create accounts for multiple roles
+- Deleted accounts cannot be recovered; consider archiving instead if possible
 
 ---
 
@@ -161,7 +317,6 @@ Locker_Management/
 - View comprehensive system reports and analytics
 
 ### **Teacher**
-
 - View teacher dashboard with student statistics
 - Manage student profiles (search, edit, create, delete)
 - Assign and unassign lockers to/from students
@@ -178,7 +333,6 @@ Locker_Management/
 - Access pickup authorization, emergency health, and transportation reports
 
 ### **Student**
-
 - View personal dashboard with completion status
 - Submit registration forms (sports, health, pickup, transportation, media)
 - Track personal compliance progress percentage
@@ -186,7 +340,6 @@ Locker_Management/
 - Download personal compliance report as PDF
 
 ### **Parent**
-
 - Access parent portal with child's registration status
 - Link account to student record using student ID or email
 - Submit required parental consent forms
@@ -199,408 +352,260 @@ Locker_Management/
 ## 🛣️ Routes Summary
 
 ### Admin Routes
-
-| Method     | Route                                        | Description                          |
-|------------|----------------------------------------------|--------------------------------------|
-| GET        | `/admin/dashboard`                           | Admin Dashboard with stats           |
-| GET/POST   | `/admin/settings`                            | Configure system settings            |
-| GET        | `/admin/manage_users`                        | Search and manage all users          |
-| POST       | `/admin/add_user`                            | Create new user account              |
-| GET/POST   | `/admin/manage_email_templates`              | Configure email templates            |
-| GET/POST   | `/admin/manage_relationships`                | Manage relationship types            |
-| GET        | `/admin/system_logs`                         | View system activity audit trail     |
-| POST       | `/admin/delete_system_log/<id>`              | Delete system log entry              |
-| GET/POST   | `/admin/manage_access`                       | Manage user access controls          |
-| POST       | `/admin/update_access`                       | Update access permissions            |
-| GET/POST   | `/admin/link_parent_to_student`              | Link parent account to student       |
-| POST       | `/admin/unlink_account/<id>`                 | Remove parent-student link           |
-| POST       | `/admin/unlink_all_accounts`                 | Remove all parent-student links      |
-| GET        | `/admin/withdrawals`                         | Manage withdrawal requests           |
-| POST       | `/admin/withdrawals/new/<student_id>`        | Create new withdrawal request        |
-| POST       | `/admin/withdrawals/<id>/approve`            | Approve withdrawal request           |
-| POST       | `/admin/withdrawals/<id>/deny`               | Deny withdrawal request              |
-| POST       | `/admin/withdrawals/<id>/restore`            | Restore archived withdrawal          |
-| POST       | `/admin/withdrawals/<id>/edit`               | Edit withdrawal details              |
-| POST       | `/admin/withdrawals/<id>/archive`            | Archive withdrawal request           |
-| GET        | `/admin/withdrawals/<id>/view`               | View withdrawal details              |
-| GET        | `/admin/sports-registrations`                | Manage sports registrations          |
-| POST       | `/admin/sports-registrations/<id>/approve`   | Approve sports registration          |
-| POST       | `/admin/sports-registrations/<id>/reject`    | Reject sports registration           |
-| POST       | `/admin/approve-all-sports-registrations`    | Approve all pending registrations    |
-| GET        | `/admin/sports-registrations/<id>/view`      | View registration details            |
-| POST       | `/admin/sports-registrations/<id>/delete`    | Delete sports registration           |
-| GET        | `/admin/completion_dashboard`                | Monitor all student compliance       |
-| POST       | `/admin/bulk_nudge`                          | Send bulk notifications              |
-| POST       | `/admin/bulk_export_pdf`                     | Export bulk compliance PDFs          |
-| GET        | `/admin/registration_settings`               | Configure registration requirements  |
-| POST       | `/admin/settings/requirements/delete/<id>`   | Delete requirement                   |
-| GET        | `/admin/completion/export`                   | Export compliance roster as CSV      |
-| POST       | `/admin/volunteer_submissions`               | View volunteer form submissions      |
-| POST       | `/admin/toggle_volunteer_contacted/<id>`     | Mark volunteer as contacted          |
+| Method | Route                                      | Description                         |
+|--------|--------------------------------------------|------------------------------------|
+| GET    | `/admin/dashboard`                         | Admin Dashboard with stats          |
+| GET/POST | `/admin/settings`                        | Configure system settings           |
+| GET    | `/admin/manage_users`                      | Search and manage all users         |
+| POST   | `/admin/add_user`                          | Create new user account             |
+| GET/POST | `/admin/edit_user/<id>`                  | Edit existing user profile          |
+| POST   | `/admin/delete_user/<id>`                  | Delete user account                 |
+| POST   | `/admin/import_users`                      | Bulk import users from CSV          |
+| POST   | `/admin/add_admin_user`                    | Create new admin account            |
+| GET/POST | `/admin/manage_relationships`            | Manage relationship types           |
+| POST   | `/admin/add_relationship`                  | Create new relationship type        |
+| GET/POST | `/admin/edit_relationship/<id>`          | Edit relationship type              |
+| POST   | `/admin/delete_relationship/<id>`         | Delete relationship type            |
+| GET    | `/admin/manage_lockers`                    | View and search all lockers         |
+| POST   | `/admin/bulk_assign`                       | Assign locker to student            |
+| POST   | `/admin/bulk_assign_csv`                   | Bulk assign lockers from CSV        |
+| POST   | `/admin/add_locker`                        | Create new locker                   |
+| GET/POST | `/admin/edit_locker/<id>`                | Edit locker details                 |
+| POST   | `/admin/delete_locker/<id>`                | Delete locker                       |
+| POST   | `/admin/assign_locker/<id>`                | Assign locker to specific student   |
+| POST   | `/admin/unassign_locker/<id>`              | Release locker from student         |
+| POST   | `/admin/reset_all_lockers`                 | Unassign all lockers at once        |
+| GET/POST | `/admin/manage_buildings`                | Manage school buildings             |
+| POST   | `/admin/add_building`                      | Add new building                    |
+| GET/POST | `/admin/edit_building/<id>`              | Edit building information           |
+| POST   | `/admin/delete_building/<id>`              | Delete building                     |
+| GET    | `/admin/grade_levels`                      | Manage grade levels                 |
+| POST   | `/admin/add_grade_level`                   | Add new grade level                 |
+| GET/POST | `/admin/edit_grade_level/<id>`           | Edit grade level                    |
+| POST   | `/admin/delete_grade_level/<id>`           | Delete grade level                  |
+| GET    | `/admin/graduation_years`                  | Manage graduation years             |
+| POST   | `/admin/add_graduation_year`               | Add new graduation year             |
+| GET/POST | `/admin/edit_graduation_year/<id>`       | Edit graduation year                |
+| POST   | `/admin/delete_graduation_year/<id>`       | Delete graduation year              |
+| GET    | `/admin/manage_genders`                    | Manage gender options               |
+| POST   | `/admin/add_gender`                        | Add new gender                      |
+| GET/POST | `/admin/edit_gender/<id>`                | Edit gender                         |
+| POST   | `/admin/delete_gender/<id>`                | Delete gender                       |
+| GET/POST | `/admin/system_settings`                 | Configure system-wide settings      |
+| POST   | `/admin/add_domain`                        | Add allowed email domain             |
+| POST   | `/admin/delete_domain/<id>`                | Remove email domain restriction     |
+| POST   | `/admin/email_users`                       | Send bulk email to users            |
+| GET/POST | `/admin/student_locker_agreement`        | Manage locker agreement document    |
+| POST   | `/admin/student_locker_agreement_edit`    | Update locker agreement             |
+| GET    | `/admin/home_page_content_list`            | Manage home page content            |
+| POST   | `/admin/add_home_page_content`             | Add home page content block         |
+| GET/POST | `/admin/edit_home_page_content/<id>`    | Edit home page content              |
+| POST   | `/admin/delete_home_page_content/<id>`    | Delete home page content            |
+| GET    | `/admin/content_list`                      | Manage general content pages        |
+| POST   | `/admin/add_content`                       | Add new content page                |
+| GET/POST | `/admin/edit_content/<id>`               | Edit content page                   |
+| POST   | `/admin/delete_content/<id>`               | Delete content page                 |
+| GET    | `/admin/reports/users`                     | View user reports                   |
+| GET    | `/admin/reports/users/export/csv`          | Export users as CSV                 |
+| GET    | `/admin/reports/users/export/pdf`          | Export users as PDF                 |
+| GET    | `/admin/reports/sports`                    | View sports registration reports    |
+| GET    | `/admin/reports/sports/export/csv`         | Export sports data as CSV           |
+| GET    | `/admin/reports/sports/export/pdf`         | Export sports data as PDF           |
+| GET    | `/admin/reports/withdrawals`               | View withdrawal request reports     |
+| GET    | `/admin/reports/withdrawals/export/csv`    | Export withdrawals as CSV           |
+| GET    | `/admin/reports/withdrawals/export/pdf`    | Export withdrawals as PDF           |
+| GET/POST | `/admin/forms_control`                   | Configure form options and display  |
+| POST   | `/admin/import_form_options`               | Bulk import form options            |
+| GET    | `/admin/manage_form_options`               | Manage form dropdown options        |
+| POST   | `/admin/add_form_option`                   | Add new form option                 |
+| POST   | `/admin/delete_form_option/<id>`           | Delete form option                  |
+| GET    | `/admin/manage_policies`                   | View and manage policies            |
+| GET/POST | `/admin/email_templates`                | Manage email templates              |
+| POST   | `/admin/add_email_template`                | Create new email template           |
+| GET/POST | `/admin/edit_email_template/<id>`        | Edit email template                 |
+| POST   | `/admin/delete_email_template/<id>`        | Delete email template               |
+| GET    | `/admin/system_logs`                       | View system activity audit trail    |
+| POST   | `/admin/delete_system_log/<id>`            | Delete system log entry             |
+| GET/POST | `/admin/manage_access`                   | Manage user access controls         |
+| POST   | `/admin/update_access`                     | Update access permissions           |
+| GET/POST | `/admin/link_parent_to_student`         | Link parent account to student      |
+| POST   | `/admin/unlink_account/<id>`               | Remove parent-student link          |
+| POST   | `/admin/unlink_all_accounts`               | Remove all parent-student links      |
+| GET    | `/admin/withdrawals`                       | Manage withdrawal requests          |
+| POST   | `/admin/withdrawals/new/<student_id>`      | Create new withdrawal request       |
+| POST   | `/admin/withdrawals/<id>/approve`          | Approve withdrawal request          |
+| POST   | `/admin/withdrawals/<id>/deny`             | Deny withdrawal request             |
+| POST   | `/admin/withdrawals/<id>/restore`          | Restore archived withdrawal         |
+| POST   | `/admin/withdrawals/<id>/edit`             | Edit withdrawal details             |
+| POST   | `/admin/withdrawals/<id>/archive`          | Archive withdrawal request          |
+| GET    | `/admin/withdrawals/<id>/view`             | View withdrawal details             |
+| GET    | `/admin/sports-registrations`               | Manage sports registrations         |
+| POST   | `/admin/sports-registrations/<id>/approve`  | Approve sports registration         |
+| POST   | `/admin/sports-registrations/<id>/reject`   | Reject sports registration          |
+| POST   | `/admin/approve-all-sports-registrations`   | Approve all pending registrations   |
+| GET    | `/admin/sports-registrations/<id>/view`     | View registration details           |
+| POST   | `/admin/sports-registrations/<id>/delete`   | Delete sports registration          |
+| GET    | `/admin/completion_dashboard`               | Monitor all student compliance      |
+| POST   | `/admin/bulk_nudge`                        | Send bulk notifications             |
+| POST   | `/admin/bulk_export_pdf`                   | Export bulk compliance PDFs         |
+| GET    | `/admin/registration_settings`              | Configure registration requirements |
+| POST   | `/admin/settings/requirements/delete/<id>`  | Delete requirement                  |
+| GET    | `/admin/completion/export`                  | Export compliance roster as CSV     |
+| POST   | `/admin/volunteer_submissions`              | View volunteer form submissions      |
+| POST   | `/admin/toggle_volunteer_contacted/<id>`    | Mark volunteer as contacted         |
 
 ### Teacher Routes
-
-| Method   | Route                                        | Description                            |
-|----------|----------------------------------------------|----------------------------------------|
-| GET      | `/teacher/dashboard`                         | Teacher Dashboard with stats           |
-| GET      | `/teacher/manage_users`                      | Search and manage students             |
-| POST     | `/teacher/add_user`                          | Create new student account             |
-| GET/POST | `/teacher/assign_locker`                     | Assign locker to student               |
-| POST     | `/teacher/unassign_locker/<id>`              | Release locker from student            |
-| GET      | `/teacher/view_lockers`                      | View and filter all lockers            |
-| GET      | `/teacher/locker_stats`                      | View locker statistics                 |
-| GET      | `/teacher/sports-registrations`              | Manage sports registrations            |
-| POST     | `/teacher/sports-registrations/<id>/approve` | Approve sports registration            |
-| POST     | `/teacher/sports-registrations/<id>/reject`  | Reject sports registration             |
-| GET      | `/teacher/dashboard/completion`              | Monitor student compliance             |
-| POST     | `/teacher/bulk_nudge`                        | Send bulk notifications                |
-| POST     | `/teacher/bulk_export_pdf`                   | Export bulk compliance PDFs            |
-| GET      | `/teacher/reports`                           | View pickup, health, transport reports |
-| GET      | `/teacher/reports/export/csv`                | Export reports as CSV                  |
-| GET      | `/teacher/reports/export/pdf`                | Export reports as PDF                  |
-| GET/POST | `/teacher/settings/requirements`             | Configure registration requirements    |
+| Method | Route                                    | Description                       |
+|--------|------------------------------------------|-----------------------------------|
+| GET    | `/teacher/dashboard`                    | Teacher Dashboard with stats     |
+| GET    | `/teacher/manage_users`                 | Search and manage students       |
+| POST   | `/teacher/add_user`                     | Create new student account       |
+| GET/POST | `/teacher/edit_user/<id>`              | Edit student profile             |
+| POST   | `/teacher/delete_user/<id>`             | Delete student account           |
+| GET    | `/teacher/assign_locker`                | Assign locker to student         |
+| POST   | `/teacher/unassign_locker/<id>`         | Release locker from student      |
+| GET    | `/teacher/view_lockers`                 | View and filter all lockers      |
+| GET    | `/teacher/locker_stats`                 | View locker statistics           |
+| GET    | `/teacher/sports-registrations`         | Manage sports registrations      |
+| POST   | `/teacher/sports-registrations/<id>/approve` | Approve sports registration |
+| POST   | `/teacher/sports-registrations/<id>/reject`  | Reject sports registration  |
+| POST   | `/teacher/approve-all-sports-registrations` | Approve all pending registrations |
+| GET    | `/teacher/sports-registrations/<id>/view` | View registration details       |
+| GET    | `/teacher/dashboard/completion`         | Monitor student compliance       |
+| POST   | `/teacher/bulk_nudge`                   | Send bulk notifications          |
+| POST   | `/teacher/bulk_export_pdf`              | Export bulk compliance PDFs      |
+| GET    | `/teacher/reports`                      | View pickup, health, transport reports |
+| GET    | `/teacher/reports/export/csv`           | Export reports as CSV            |
+| GET    | `/teacher/reports/export/pdf`           | Export reports as PDF            |
+| GET/POST | `/teacher/settings/requirements`      | Configure registration requirements |
+| POST   | `/teacher/settings/requirements/delete/<id>` | Delete requirement         |
+| GET    | `/teacher/completion/export`            | Export compliance roster as CSV  |
+| GET    | `/teacher/withdrawals`                  | Manage withdrawal requests       |
+| POST   | `/teacher/withdrawals/new/<student_id>` | Create new withdrawal request    |
+| POST   | `/teacher/withdrawals/<id>/approve`     | Approve withdrawal request       |
+| POST   | `/teacher/withdrawals/<id>/deny`        | Deny withdrawal request          |
+| POST   | `/teacher/withdrawals/<id>/complete`    | Mark withdrawal as completed     |
+| POST   | `/teacher/withdrawals/<id>/restore`     | Restore archived withdrawal      |
+| POST   | `/teacher/withdrawals/<id>/archive`     | Archive withdrawal request       |
 
 ### Student Routes
-
-| Method | Route                                  | Description                  |
-|--------|----------------------------------------|------------------------------|
-| GET    | `/student/dashboard`                   | Student Dashboard            |
-| GET    | `/student/registration`                | Registration forms page      |
-| POST   | `/student/submit_sports_registration`  | Submit sports form           |
-| POST   | `/student/submit_health_record`        | Submit emergency health form |
-| POST   | `/student/submit_pickup_authorization` | Submit pickup authorization  |
+| Method | Route                                    | Description                       |
+|--------|------------------------------------------|-----------------------------------|
+| GET    | `/student/dashboard`                    | Student Dashboard                |
+| GET    | `/student/registration`                 | Registration forms page           |
+| POST   | `/student/submit_sports_registration`   | Submit sports form               |
+| POST   | `/student/submit_health_record`         | Submit emergency health form     |
+| POST   | `/student/submit_pickup_authorization`  | Submit pickup authorization      |
 
 ### Parent Routes
-
-| Method | Route                      | Description                    |
-|--------|----------------------------|--------------------------------|
-| GET    | `/parent/dashboard`        | Parent Portal Dashboard        |
-| GET    | `/parent/unlinked_account` | Account linking page           |
-| POST   | `/parent/link_account`     | Link parent to student         |
-| GET    | `/parent/student/<id>`     | View student compliance status |
+| Method | Route                                    | Description                       |
+|--------|------------------------------------------|-----------------------------------|
+| GET    | `/parent/dashboard`                     | Parent Portal Dashboard          |
+| GET    | `/parent/unlinked_account`              | Account linking page             |
+| POST   | `/parent/link_account`                  | Link parent to student           |
+| GET    | `/parent/student/<id>`                  | View student compliance status   |
 
 ### Authentication Routes
-
-| Method   | Route                     | Description               |
-|----------|---------------------------|---------------------------|
-| GET/POST | `/login`                  | User login                |
-| GET/POST | `/register`               | User registration         |
-| GET/POST | `/forgot_password`        | Password reset request    |
-| GET/POST | `/reset_password/<token>` | Password reset with token |
-| GET      | `/logout`                 | User logout               |
+| Method | Route                                    | Description                       |
+|--------|------------------------------------------|-----------------------------------|
+| GET/POST | `/login`                              | User login                       |
+| GET/POST | `/register`                           | User registration                |
+| GET/POST | `/forgot_password`                    | Password reset request           |
+| GET/POST | `/reset_password/<token>`             | Password reset with token        |
+| GET    | `/logout`                              | User logout                      |
 
 ---
 
 ## 📊 Key Features
 
 ### Locker Management System
-
 - **Multi-Building Inventory**: Manage lockers across multiple school buildings
 - **Floor & Location Tracking**: Organize by floor and locker number
 - **Real-Time Status**: Available, assigned, or maintenance status
 - **Assignment History**: Track assignment dates and student history
 - **Advanced Search**: Filter by building, floor, student name, or ID
 - **Bulk Operations**: Assign/unassign multiple lockers efficiently
+- **CSV Import/Export**: Bulk upload locker assignments
+- **Reset All Function**: Quickly unassign all lockers (useful at end of year)
 - **Analytics Dashboard**: Occupancy percentage, availability trends
 
 ### Student Registration & Compliance
-
 - **Dynamic Requirements**: Configurable form requirements with weighted importance
 - **Automatic Completion Calculation**: Real-time progress percentage based on weights
-- **Multi-Step Forms**:
-    - Emergency Health Records
-    - Sports Registration
-    - Pickup Authorization
-    - Transportation Records
-    - Media Policy Release
+- **Multi-Step Forms**: 
+  - Emergency Health Records
+  - Sports Registration
+  - Pickup Authorization
+  - Transportation Records
+  - Media Policy Release
 - **Current vs. Historical**: Track current and previous records
 - **Compliance Dashboard**: Visual progress for all students with filtering/sorting
+- **Admin & Teacher Access**: Monitor compliance across all students
 
 ### Sports Registration Workflow
-
 - **Status Tracking**: Pending → Approved/Rejected
 - **Health Record Integration**: Cross-reference emergency health records
 - **Bulk Approval**: Approve all pending registrations at once
 - **Detailed Reporting**: Export rosters with student details and EHR status
 - **Multi-Format Export**: CSV and PDF report generation
+- **Admin Control**: Full management from admin panel
 
 ### Withdrawal Processing
-
 - **Multi-Status Workflow**: Pending → Approved/Denied → Completed/Archived
 - **Status Toggling**: Deactivate/activate withdrawal requests
+- **Denial Reasons**: Capture and store reason for denial
 - **Historical Archive**: Restore archived withdrawals if needed
 - **Audit Trail**: Complete tracking of who approved/denied and when
+- **Admin & Teacher Access**: Both roles can manage withdrawals
 
 ### Reporting & Export Capabilities
-
 - **Completion Dashboard**: Real-time student compliance monitoring
-    - Filter by grade, graduation year, completion status, missing requirements
-    - Sort by name or completion percentage
-    - Quick-view modal with notification history
-    - Custom saveable dashboard filters
+  - Filter by grade, graduation year, completion status, missing requirements
+  - Sort by name or completion percentage
+  - Quick-view modal with notification history
+  - Custom saveable dashboard filters
 - **Multi-Format Exports**:
-    - CSV for spreadsheet analysis
-    - Individual PDF compliance reports
-    - Bulk ZIP archives of multiple PDFs
+  - CSV for spreadsheet analysis
+  - Individual PDF compliance reports
+  - Bulk ZIP archives of multiple PDFs
 - **Report Types**:
-    - Pickup Authorization Reports
-    - Emergency Health Records
-    - Transportation Records
-    - Sports Registration Rosters
-    - Student Compliance Roster
+  - User Reports (all user types)
+  - Pickup Authorization Reports
+  - Emergency Health Records
+  - Transportation Records
+  - Sports Registration Rosters
+  - Student Compliance Roster
+  - Withdrawal Request History
+- **Admin Reporting**: Comprehensive system-wide reports
 
 ### Notification & Audit System
-
 - **Targeted Notifications**: Send to incomplete students or parents
 - **Bulk Nudge**: Notify multiple students matching filter criteria
 - **Notification Audit Log**: Track who sent what and when
 - **Student Quick-View History**: See recent notifications sent to each student
 - **System Activity Log**: Complete audit trail of all actions with IP tracking
+- **Log Management**: Delete logs for archival/cleanup
 
 ### Email Template Management
-
 - **Customizable Templates**: Create and edit email templates
 - **Template Variables**: Support for dynamic variable substitution
 - **SMTP Configuration**: Gmail or other SMTP providers supported
+- **Bulk Email**: Send messages to filtered user groups
+
+### Administrative Configuration
+- **System Settings**: Configure school name, contact info, etc.
+- **Domain Restrictions**: Restrict registrations to specific email domains
+- **Grade Levels**: Create and manage school grade levels
+- **Graduation Years**: Configure years for student cohorts
+- **Buildings**: Manage school buildings with sort order
+- **Genders**: Configure gender options for student profiles
+- **Relationship Types**: Define family relationship types
+- **Form Options**: Manage dropdown options for form fields
+- **Policies**: Configure school policies and agreements
+- **Access Control**: Manage user permissions and roles
 
 ---
 
-## 📊 Database Models
+## 🔧 Configuration
 
-### Core Models
-
-- **User** - Students, teachers, parents, admins with roles
-- **RoleEnum** - Role types (ADMIN, TEACHER, STUDENT, PARENT)
-- **Locker** - Physical locker inventory
-- **Building** - School buildings with sort order
-- **GradeLevel** - Grade levels (9th, 10th, etc.)
-- **GraduationYear** - Graduation years
-- **Season** - Sports seasons (Fall, Winter, Spring)
-- **Sport** - Available sports programs
-
-### Registration & Compliance Models
-
-- **RegistrationRequirement** - Dynamic form requirements with weights
-- **SportsRegistration** - Sports program registrations with approval
-- **EmergencyHealthRecord** - Medical information and allergies
-- **PickupAuthorization** - Authorized pickup contacts (JSON-stored)
-- **TransportationRecord** - AM/PM transportation methods and routes
-- **MediaPolicyRelease** - Media consent acknowledgments
-
-### Relationship & Tracking Models
-
-- **Relationship** - Family relationship types (Parent, Guardian, etc.)
-- **WithdrawalRequest** - Student withdrawal requests with status tracking
-- **NotificationLog** - Audit trail for all notifications sent
-- **SystemLog** - Complete activity audit with IP tracking
-- **SavedFilter** - User-saved dashboard filter configurations
-- **TeacherFilter** - Teacher-specific saved filters
-
----
-
-## 🎨 Frontend Features
-
-### Responsive Design
-
-- Mobile-first responsive layout
-- Bootstrap 5 framework for UI components
-- Accessible color scheme (WCAG AAA compliant)
-- Colorblind-friendly design using CSS variables
-
-### Accessibility
-
-- WCAG AA/AAA compliant colors
-- Keyboard navigation support
-- Screen reader friendly
-- Proper semantic HTML
-- Form validation with error messages
-
-### User Interface Components
-
-- Interactive data tables with sorting/filtering
-- Modal dialogs for confirmations
-- Pagination controls
-- Progress indicators
-- Status badges
-- Search and filter dropdowns
-- Export buttons (CSV, PDF, ZIP)
-
----
-
-## 🐛 Recent Updates & Bug Fixes
-
-### Version 1.0 - Current Release
-
-#### New Features
-
-- Dynamic, configurable registration requirements with weight-based completion
-- Targeted bulk notification system with audit logging
-- Enhanced completion dashboard with filtering and custom saved views
-- Comprehensive reporting suite (CSV, PDF, bulk ZIP export)
-- Student quick-view modal with notification history
-- Parent account linking and portal access
-
-#### Bug Fixes
-
-- **Fixed**: Pickup authorization export now correctly reads from the `name` column instead of `authorized_list_json`
-  field in both CSV and PDF exports
-- **Fixed**: Search functionality expanded in Teacher User Management for full name matching
-- **Fixed**: Numeric building sort order now consistent across locker views
-- **Fixed**: Sports registration export respects all active UI filters
-
-#### Improvements
-
-- Enhanced teacher search functionality across all student management pages
-- Improved locker assignment interface with building-specific filtering
-- Better error handling and user feedback on form submissions
-- Audit logging added to all major administrative actions
-
----
-
-## 📝 Template Overview
-
-### Layout Templates
-
-- `base.html` - Main layout with navigation bar
-- `admin/base.html` - Admin section layout
-- `teacher/base.html` - Teacher section layout
-- `student/base.html` - Student section layout
-- `parent/base.html` - Parent portal layout
-
-### Admin Templates
-
-- `admin/dashboard.html` - Admin overview and statistics
-- `admin/manage_users.html` - User search and management
-- `admin/add_user.html` - User creation form
-- `admin/edit_user.html` - User editing form
-- `admin/email_templates.html` - Email template CRUD
-- `admin/manage_relationships.html` - Relationship type management
-- `admin/settings.html` - System settings configuration
-
-### Teacher Templates
-
-- `teacher/dashboard_teacher.html` - Teacher overview with stats
-- `teacher/manage_users.html` - Student search and management
-- `teacher/add_user.html` - Student account creation
-- `teacher/edit_user.html` - Student profile editing
-- `teacher/assign_locker.html` - Locker assignment interface
-- `teacher/view_lockers.html` - Locker inventory with filters
-- `teacher/locker_stats.html` - Locker statistics and trends
-- `teacher/completion_dashboard.html` - Student compliance tracking
-- `teacher/manage_sports_registrations.html` - Sports approval workflow
-- `teacher/view_sports_registration.html` - Detailed registration view
-- `teacher/withdrawal_requests.html` - Withdrawal request processing
-- `teacher/reports.html` - Multi-tab reporting interface
-- `teacher/registration_settings.html` - Dynamic requirement configuration
-
-### Student Templates
-
-- `student/dashboard_student.html` - Student overview
-- `student/registration.html` - Multi-form registration page
-- `student/locker_info.html` - Locker assignment details
-
-### Parent Templates
-
-- `parent/dashboard.html` - Parent portal overview
-- `parent/unlinked_account.html` - Account linking interface
-- `parent/student_profile.html` - Child's compliance status view
-
----
-
-## 🤝 Contributing
-
-We welcome contributions from the community! Here's how to get started:
-
-1. Fork the repository on GitHub
-2. Create your feature branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Make your changes and test thoroughly
-4. Commit your changes with clear messages:
-   ```bash
-   git commit -m "Add feature: [description of changes]"
-   ```
-5. Push to your branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-6. Open a Pull Request with a detailed description of your changes
-
-### Code Standards
-
-- Follow PEP 8 for Python code
-- Use meaningful variable and function names
-- Include docstrings for functions and classes
-- Write tests for new features
-- Comment complex logic
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License. See the `LICENSE` file for full details.
-
----
-
-## 🚀 Future Enhancements
-
-- **Real-Time Notifications**: WebSocket-based push notifications
-- **SMS Integration**: Text message notifications for urgent alerts
-- **Advanced Analytics**: Trend analysis and predictive compliance reporting
-- **Single Sign-On (SSO)**: Google, Microsoft, and SAML integration
-- **Mobile App**: Native iOS and Android applications
-- **QR Code Access**: QR code-based locker access control
-- **Automated Backups**: Scheduled database backups and disaster recovery
-- **Integration APIs**: RESTful API for third-party integrations
-- **Biometric Access**: Fingerprint/facial recognition locker access
-- **Multi-Language Support**: Internationalization for diverse student populations
-
----
-
-## 📞 Support & Issues
-
-### Getting Help
-
-- **Documentation**: Check the project README and inline code comments
-- **Issues**: Search existing GitHub issues or create a new one
-- **Discussions**: Use GitHub Discussions for questions and ideas
-- **Email**: Contact the development team at support@school.com
-
-### Reporting Bugs
-
-When reporting bugs, please include:
-
-1. Steps to reproduce the issue
-2. Expected vs. actual behavior
-3. Screenshots or error messages
-4. Your environment (OS, Python version, etc.)
-
----
-
-## 🏫 Schools Using This System
-
-*Add your school here by submitting a PR or issue*
-
----
-
-## 👨‍💻 Development Team
-
-- **Project Lead**: [Your Name]
-- **Contributors**: [List contributors here]
-
----
-
-## 📚 Resources
-
-- [Flask Documentation](https://flask.palletsprojects.com/)
-- [SQLAlchemy Documentation](https://docs.sqlalchemy.org/)
-- [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.0/)
-- [WTForms Documentation](https://wtforms.readthedocs.io/)
-- [Jinja2 Template Documentation](https://jinja.palletsprojects.com/)
-
----
-
-**Happy Locker Management! 🚪**
-
-*Last Updated: January 2026*
+### Environment Variables (`.env`)
