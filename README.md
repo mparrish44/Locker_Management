@@ -23,6 +23,8 @@ The Locker Management System provides a complete solution for schools to manage:
   
 
 
+
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-repository/locker_app.git
