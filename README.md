@@ -20,6 +20,7 @@ The Locker Management System provides a complete solution for schools to manage:
 - **Transportation and media policy** management
 - **System-wide reporting and analytics**
 - **Dynamic registration requirements** with weighted completion tracking
+  
 
 
 1. Clone the repository:
